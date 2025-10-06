@@ -2,49 +2,34 @@
 
 using namespace std;
 
+int e = 17, N = 3233, d = 2753;
+
+int cache[100001];
+
+int power(int a, int b){
+    if(cache[b]!=0) return cache[b];
+    if(b==1) return a%N;
+    int mid = b/2;
+    int ret = power(a, mid)%N;
+    ret = (ret*ret)%N;
+    return cache[b] = (b%2==0 ? ret: (ret*a)%N);
+}
+
+
 int main(){
-    string s1, s2;
 
-    cin >> s1 >> s2;
+    while(1){
+        int a,b;
+        cin >> a;
+        if(a==0) break;
+        fill(cache, cache+100001, 0);
+        int C = power(a, e);
+        fill(cache, cache+100001, 0);
+        int M = power(C, d);
 
-    int s1len = s1.size(), s2len = s2.size();
-    if(s1len<s2len) swap(s1, s2);
-
-    int mmin = min(s1len, s2len);
-    int mmax = max(s1len, s2len);
-    bool temp=0;
-
-    for(int i =0; i<mmax; i++){
-        if(i<mmin){
-            if(temp==1){
-                if(s1[s1len-i-1]=='1'){
-                    s1[s1len-i-1]='0';
-                }else{
-                    s1[s1len-i-1]='1';
-                    temp=0;
-                }
-            }
-            if(s1[s1len-i-1]=='1' & s2[s2len-i-1]=='1'){
-                temp=1;
-                s1[s1len-i-1] = '0';
-            }
-            else if(s1[s1len-i-1]=='0' && s2[s2len-1-i]=='0'){
-                continue;
-            }
-            else{
-                s1[s1len-i-1] = '1';
-            }
-        }
-
-        else{
-            if(s1[s1len-i-1])
-        }
+        cout << C <<" " << M << "\n";
     }
 
-    
-    
+    return 0;
 
-
-    
-    
 }
