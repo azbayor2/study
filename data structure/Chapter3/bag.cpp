@@ -1,7 +1,9 @@
 #include "bag.h"
 #include <cassert>
-
+#include <algorithm>
 //public
+
+using namespace std;
 
 bag::bag(){
     used=0;
@@ -31,4 +33,14 @@ int bag::occurrences(int target) const{
         if(data[i]==target) count++;
     }
     return count;
+}
+
+void bag::operator+=(const bag & src){
+    assert(this->size()+src.size()<=CAP);
+    this->used+=src.size();
+
+    copy(src.data, src.data+src.size(), data+used);
+
+    return;
+
 }

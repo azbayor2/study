@@ -26,3 +26,22 @@ const node* node::get_link() const{
 node* node::get_link(){
     return next;
 }
+
+template<class Item>
+class node_iterator : public std::iterator<std::forward_iteragor_tag, Item>{
+    node<Item> * cur;
+    node_iterator(node<Item> * headptr){
+        cur = headptr;
+    }
+
+    node_iterator<Item> & operator++(){
+        cur = cur->get_link();
+        return *this;
+    }
+
+    node_iterator<Item> & operator++(int){
+        node_iterator<Item> ret = this->cur;
+        cur = cur->get_link();
+        return ret;
+    }
+};

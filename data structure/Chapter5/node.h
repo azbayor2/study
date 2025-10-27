@@ -11,10 +11,12 @@ class node{
     const node* get_link() const;
     node *get_link();
     node(value_type & init_data, node *init_link=nullptr);
+    node(){
+        next = NULL;
+        data = 0;
+    };
 
     private:
         node * next;
         value_type data;
 };
-
-class node_iterator: public std::iterator<std::forward
