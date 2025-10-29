@@ -1,35 +1,16 @@
-#include <iostream>
+#include <queue>
+#include <vector>
 
-using namespace std;
+int mvx[4] = {1,0,-1,0};
+int mvy[4] = {0,1,0,-1};
 
-int e = 17, N = 3233, d = 2753;
-
-int cache[100001];
-
-int power(int a, int b){
-    if(cache[b]!=0) return cache[b];
-    if(b==1) return a%N;
-    int mid = b/2;
-    int ret = power(a, mid)%N;
-    ret = (ret*ret)%N;
-    return cache[b] = (b%2==0 ? ret: (ret*a)%N);
-}
-
-
-int main(){
-
-    while(1){
-        int a,b;
-        cin >> a;
-        if(a==0) break;
-        fill(cache, cache+100001, 0);
-        int C = power(a, e);
-        fill(cache, cache+100001, 0);
-        int M = power(C, d);
-
-        cout << C <<" " << M << "\n";
+void bfs(int x, int y){
+    //...
+    for(int i =0; i<4; i++){
+        int nx = x+mvx[i];
+        int ny = y+mvy[i];
+        //1. 주어진 범위 안에 있는지 검사
+        //2. 방문한 노드인지
+        //3. 탐색에서 주어진 조건을 만족하는지  
     }
-
-    return 0;
-
 }
