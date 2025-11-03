@@ -4,6 +4,7 @@ template<class Item>
 class Bag{
     private:
     binary_tree_node<Item> * headptr;
+    size_t Size(const binary_tree_node<Item> * headptr);
 
     public:
     Bag();
@@ -13,7 +14,7 @@ class Bag{
     void erase(const Item & data);
     void erase_one(const Item & data);
     void operator+=(const Bag & b);
-    Bag operator=(const Bag & b);
+    void operator=(const Bag & b);
     size_t size();
     size_t count(const Item & count);
     

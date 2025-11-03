@@ -6,6 +6,7 @@ class binary_tree_node{
     Item data_field;
     binary_tree_node<Item> *left_field;
     binary_tree_node<Item> *right_field;
+    
 
     public:
     binary_tree_node(const Item & item=0, binary_tree_node<Item> *left_field=nullptr, binary_tree_node<Item> *right_field = nullptr);

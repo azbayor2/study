@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string DEPTH = "-";
+string DEPTH = "=";
 
 //재귀함수로 구현
 
@@ -50,7 +50,7 @@ void backward_in_order(const binary_tree_node<Item>* cur, int depth){
     backward_in_order(cur->right(), depth+1);
     string c = ""; for(int i =0; i<depth; i++) c+=DEPTH;
     cout << c << cur->data() << "\n";
-    backward_in_order(cur->right(), depth+1);
+    backward_in_order(cur->left(), depth+1);
     
     return;
 }
@@ -60,12 +60,12 @@ int main(){
     binary_tree_node<char> *headptr = new binary_tree_node<char>(0,nullptr, nullptr);
 
     headptr->set_data('*');
-    headptr->set_left(new binary_tree_node<char>('+', NULL, NULL));
-    headptr->set_right(new binary_tree_node<char>('-', nullptr, nullptr));
-    headptr->left()->set_left(new binary_tree_node<char>('3', nullptr, nullptr));
-    headptr->left()->set_right(new binary_tree_node<char>('y', nullptr, nullptr));
-    headptr->right()->set_left(new binary_tree_node<char>('2', nullptr, nullptr));
-    headptr->right()->set_right(new binary_tree_node<char>('x', nullptr, nullptr));
+    headptr->set_left(new binary_tree_node<char>('+'));
+    headptr->set_right(new binary_tree_node<char>('-'));
+    (headptr->left())->set_left(new binary_tree_node<char>('3'));
+    (headptr->left())->set_right(new binary_tree_node<char>('y'));
+    (headptr->right())->set_left(new binary_tree_node<char>('2'));
+    (headptr->right())->set_right(new binary_tree_node<char>('x'));
 
     backward_in_order(headptr, 0);
 
