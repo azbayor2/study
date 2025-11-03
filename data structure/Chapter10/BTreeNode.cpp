@@ -1,11 +1,19 @@
 #include "BTreeNode.h"
 
 template<class Item> 
-binary_tree_node<Item>::binary_tree_node(const Item & item=0, binary_tree_node<Item> *left_field, binary_tree_node<Item> *right_field){
+binary_tree_node<Item>::binary_tree_node(const Item & item, 
+    binary_tree_node<Item> *left_field, binary_tree_node<Item> *right_field){
     this->data_field = item;
     this->left_field = left_field;
     this->right_field = right_field;
 }
+
+// template<class Item> 
+// binary_tree_node<Item>::binary_tree_node(const Item & item=0){
+//     this->data_field = item;
+//     this->left_field = nullptr;
+//     this->right_field = nullptr;
+// }
 
 template<class Item> 
 Item & binary_tree_node<Item>::data(){

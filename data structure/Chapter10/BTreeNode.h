@@ -8,7 +8,8 @@ class binary_tree_node{
     binary_tree_node<Item> *right_field;
 
     public:
-    binary_tree_node(const Item & item=0, binary_tree_node<Item> *left_field=NULL, binary_tree_node<Item> *right_field = NULL);
+    binary_tree_node(const Item & item=0, binary_tree_node<Item> *left_field=nullptr, binary_tree_node<Item> *right_field = nullptr);
+    //binary_tree_node(const Item & item=0);
     Item & data();
     const Item & data() const;
     binary_tree_node<Item> *& left();
