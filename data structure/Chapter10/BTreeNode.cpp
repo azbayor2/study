@@ -88,3 +88,49 @@ binary_tree_node<Item> * tree_copy(binary_tree_node<Item> *root){
 
     return new binary_tree_node<Item>(root->data, l, r);
 }
+
+
+template<class Item>  //bag with btreenode 사용
+void bst_remove(binary_tree_node<Item>*& root_ptr, const Item & target){
+    if(root_ptr==nullptr) return;  //1.
+
+    else if(target<root_ptr->data())  //2.
+        bst_remove(root_ptr->left(), target);
+
+    else if(target>root_ptr->data())   //3.
+        bst_remove(root_ptr->right(), target);
+    
+    else if(target==root_ptr->data()){  //4.
+        if(root_ptr->left()==nullptr){   //4-1
+            binary_tree_node * del = root_ptr;
+            root_ptr = root_ptr->right();
+            delete del;
+            return;
+        }
+
+        else{   //4-1
+            bst_remove_max(root_ptr->left(), root_ptr->data());
+            return;
+        }
+    }
+
+}
+
+
+template<class Item> //bag with btreenode 사용
+void bst_remove_max(binary_tree_node<Item> *& root_ptr, Item & removed){
+    if(root_ptr==nullptr) return;
+    else if(root_ptr->right()==nullptr){
+        binary_tree_node<Item> * del = root_ptr;
+        removed = del->data();
+        root_ptr = root_ptr->left();
+        delete del;
+        return;
+    }
+
+    else if(root_ptr->right()!=nullptr){
+        bst_remove_max(root_ptr->right(), removed);
+
+        return;
+    }
+}

@@ -5,6 +5,7 @@ class Bag{
     private:
     binary_tree_node<Item> * headptr;
     size_t Size(const binary_tree_node<Item> * headptr);
+    void insert_all(const binary_tree_node<Item> * src);
 
     public:
     Bag();

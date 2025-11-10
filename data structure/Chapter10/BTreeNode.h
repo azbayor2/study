@@ -23,3 +23,15 @@ class binary_tree_node{
     bool is_leaf();
 
 };
+
+template<class Item>
+void tree_clear(binary_tree_node<Item> *& root);
+
+template<class Item>
+binary_tree_node<Item> * tree_copy(binary_tree_node<Item> *root);
+
+template<class Item>  //bag with btreenode 사용
+void bst_remove(binary_tree_node<Item>*& root_ptr, const Item & target);
+
+template<class Item> //bag with btreenode 사용
+void bst_remove_max(binary_tree_node<Item> *& root_ptr, Item & removed); //제거된 값을 removed에 반환
