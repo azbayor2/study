@@ -9,7 +9,8 @@ int main(){
 
     cin >> vertices >> edges;
     graph<int> g;
-    vector<int> weight[100];
+    vector<vector<int>> weight;
+    weight.resize(100);
     for(int i =0; i<100; i++)
         weight[i].resize(100);
 
@@ -19,8 +20,10 @@ int main(){
     for(int i =0; i<edges; i++){
         cin >> a >> b >> cost;
         g.add_edge(a, b);
-        weight[a][b] = 1;
+        weight[a][b] = cost;
     }
+
+    g.neighbors(0);
 
     int *res=nullptr;
 
