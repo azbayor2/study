@@ -19,14 +19,24 @@ int main(){
     for(int i =0; i<edges; i++){
         cin >> a >> b >> cost;
         g.add_edge(a, b);
-        weight[a][b] = 1;
+        weight[a][b] = cost;
     }
 
-    int *res=nullptr;
+    int * res = NULL;
+    int * path = NULL;
 
-    dijkstra(g, 0, weight, res);
+    dijkstra(g, 0, weight, res, path);
 
-    for(int i =0; i<vertices; i++) cout << res[i] << " ";
+    for(int i =0; i<vertices; i++){
+        int start = i;
+        while(1){
+            cout << start << " ";
+            if(start==0) break;
+            start = path[start];
+        }
+
+        cout << "length: " << res[i] << "\n";
+    }
 
     cout << endl;
 

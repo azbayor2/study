@@ -2,23 +2,33 @@
 #include <set>
 #include <queue>
 #include <vector>
+#include <cassert>
 
 using std::set;
 using std::queue;
 using std::priority_queue;
 using std::vector;
+using std::min;
+using std::max;
 
 template<class Item>
 class graph{
+
+    public:
+    static const std::size_t MAX = 20;
+
     private:
     bool edges[MAX][MAX];
     Item labels[MAX];
     std::size_t many_vertices;
 
     public:
-    static const std::size_t MAX = 20;
-
+ 
     size_t size(){
+        return many_vertices;
+    }
+
+    size_t size() const{
         return many_vertices;
     }
     
@@ -44,7 +54,7 @@ class graph{
 
         many_vertices++;
 
-        for(cursor=0; i<many_vertices; i++){
+        for(cursor=0; cursor<many_vertices; cursor++){
             edges[cur_ver][cursor]=false;
             edges[cursor][cur_ver]=false;
         }
@@ -57,7 +67,7 @@ class graph{
     void add_edge(size_t source, size_t target){
         assert(source<size() && target<size());
 
-        edges[source][dest]=1;
+        edges[source][target]=1;
 
         return;
     } 
@@ -73,10 +83,11 @@ class graph{
 
         std::set<size_t> ret;
         std::size_t i;
+        //std::cout << vertex << " " << many_vertices << std::endl;
 
-        assert(vertex<size());
+        assert(vertex<many_vertices);
 
-        for(i=0; i<size(); i++){
+        for(i=0; i<many_vertices; i++){
             if(edges[vertex][i])
                 ret.insert(i);
         }
@@ -102,7 +113,7 @@ void rec_dfs(Process f, graph<Item> &g, SizeType v, bool marked[]){
 
     for(it=connections.begin(); it!=connections.end(); it++){
         if(!marked[*it]);
-            rec_dfs(f, g, *it, marked[]);
+            rec_dfs(f, g, *it, marked);
     }
 }
 
@@ -141,35 +152,46 @@ void bfs(Process f, graph<Item>& g, SizeType start){
 }
 
 template<class Item, class SizeType>
-void dijkstra(const graph<Item> &g, SizeType start, vector<int> v[], int ret[]){
-    int dist[g.MAX];
+void dijkstra(const graph<Item> &g, SizeType start, vector<int> v[], int *&dist, int *&path){
+    if(dist!=NULL) delete dist;
+    dist = new int[g.MAX];
+
+    if(path!=NULL) delete path;
+    path = new int[g.MAX];
+
+    path[start]=start;
+
     std::fill(dist, dist+g.MAX, 1<<29);
 
-    bool visited[g.max];
+    bool visited[g.MAX] = {0, };
     set<size_t> s;
     set<size_t>::iterator it;
     int count=0;
+    dist[start]=0;
     
-    while(count<g.size()){
-        int cur, curdist=1<<29;
-
-        for(int i =0; i<g.MAX; i++){
-            if(visited[i]) continue;
-            if(curdist>weight[i]){
-                dist = weight[i];
-                curdist = i;
+    for(int i =0; i<g.size(); i++){
+        int cur=-1, cur_dist = 1<<29;
+        for(int j =0; j<g.size(); j++){
+            if(visited[j]) continue;
+            if(dist[j]<cur_dist){
+                cur = j;
+                cur_dist = dist[j];
             }
         }
 
-        for(it=g.neighbors(cur).begin(); it!=neighbors(cur).end(); it++){
-            dist[*it] = min(dist[(*it)], dist[cur]+weight[*it]);
+        visited[cur] = true;
+
+        s = g.neighbors(cur);
+
+        for(it = s.begin(); it!=s.end(); it++){
+            if(visited[*it]) continue;
+            int sum = dist[cur] + v[cur][*it];
+            if(dist[*it]>sum){
+                dist[*it] = min(dist[*it], sum);
+                path[*it] = cur;
+            }
         }
-
-        visited[cur]=1;
-        count++;
     }
-
-    ret = dist;
 
     return;
 }
