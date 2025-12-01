@@ -1,31 +1,33 @@
 #pragma once
 
+#include <iostream>
+
 template<class Item>
 class binary_tree_node{
     public:
-    typedef binary_tree_node btn;
+    typedef binary_tree_node<Item> btn;
     
     private:
-    Item data;
+    Item data_field;
     btn * left_field;
     btn * right_field;
 
     public:
     
     Item data() const{
-        return data;
-    }
+        return data_field;
+    };
 
-    Item data(){
-        return data;
-    }
+    Item & data(){
+        return data_field;
+    };
 
     void set_data(const Item& data){
-        this->data = data;
+        this->data_field = data;
         return;
     }
 
-    btn* left(){
+    btn*& left(){
         return left_field;
     }
 
@@ -37,15 +39,15 @@ class binary_tree_node{
         return right_field;
     }
 
-    btn* right(){
+    btn*& right(){
         return right_field;
     }
 
-    void set_left(const btn* field){
+    void set_left(btn* field){
         left_field=field;
     }
 
-    void set_right(const btn* field){
+    void set_right(btn* field){
         right_field=field;
     }
 
@@ -55,13 +57,8 @@ class binary_tree_node{
         return false;
     }
 
-    btn(){
-        left_field=NULL;
-        right_field=NULL;
-    }
-
-    btn(const Item & data, btn* l, btn* r){
-        this->data = data;
+    binary_tree_node(const Item & data, btn* l=NULL, btn* r=NULL){
+        this->data_field = data;
         left_field = l;
         right_field = r;
     }
@@ -89,5 +86,20 @@ void tree_clear(binary_tree_node<Item> *& btn){
     delete btn;
     btn = NULL;
     return;
+}
+
+template<class Item>
+void show_tree(binary_tree_node<Item> * node, int indent){
+    if(node==NULL) return;
+
+    std::string c = "    ";
+
+    std::string ind = "";
+
+    for(int i =0; i<indent; i++) ind+=c;
+
+    show_tree(node->right(), indent+1);
+    std::cout << ind << node->data() << std::endl;
+    show_tree(node->left(), indent+1);
 }
 
