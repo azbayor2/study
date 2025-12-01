@@ -9,7 +9,8 @@ int main(){
 
     cin >> vertices >> edges;
     graph<int> g;
-    vector<int> weight[100];
+    vector<vector<int>> weight;
+    weight.resize(100);
     for(int i =0; i<100; i++)
         weight[i].resize(100);
 
@@ -22,8 +23,14 @@ int main(){
         weight[a][b] = cost;
     }
 
+<<<<<<< HEAD
     int * res = NULL;
     int * path = NULL;
+=======
+    g.neighbors(0);
+
+    int *res=nullptr;
+>>>>>>> 59009ea83a995512c8907c1c027fff7cbef579f5
 
     dijkstra(g, 0, weight, res, path);
 
