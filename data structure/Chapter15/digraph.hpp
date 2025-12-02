@@ -13,10 +13,6 @@ using std::max;
 
 template<class Item>
 class graph{
-<<<<<<< HEAD
-
-=======
->>>>>>> 59009ea83a995512c8907c1c027fff7cbef579f5
     public:
     static const std::size_t MAX = 20;
 
@@ -26,10 +22,6 @@ class graph{
     std::size_t many_vertices;
 
     public:
-<<<<<<< HEAD
- 
-=======
->>>>>>> 59009ea83a995512c8907c1c027fff7cbef579f5
     size_t size(){
         return many_vertices;
     }
@@ -116,9 +108,9 @@ void rec_dfs(Process f, graph<Item> &g, SizeType v, bool marked[]){
     std::set<std::size_t> connections = g.neighbors(v);
     std::set<std::size_t>::iterator it;
     marked[v] = true;
-
+    f(v);
     for(it=connections.begin(); it!=connections.end(); it++){
-        if(!marked[*it]);
+        if(!marked[*it])
             rec_dfs(f, g, *it, marked);
     }
 }
@@ -142,12 +134,12 @@ void bfs(Process f, graph<Item>& g, SizeType start){
     visited[start]=1;
 
     while(q.size()){
-        SizeType cur = q.top(); q.pop();
+        SizeType cur = q.front(); q.pop();
         f(cur);
         set<std::size_t> connections = g.neighbors(cur);
         set<std::size_t>::iterator it;
 
-        for(it=connections.begin(); it!=connections.begin(); it++){
+        for(it=connections.begin(); it!=connections.end(); it++){
             if(!visited[*it]){
                 q.push(*it);
                 visited[*it]=true;
@@ -158,8 +150,7 @@ void bfs(Process f, graph<Item>& g, SizeType start){
 }
 
 template<class Item, class SizeType>
-<<<<<<< HEAD
-void dijkstra(const graph<Item> &g, SizeType start, vector<int> v[], int *&dist, int *&path){
+void dijkstra(const graph<Item> &g, SizeType start, vector<vector<int>> & v, int *&dist, int *&path){
     if(dist!=NULL) delete dist;
     dist = new int[g.MAX];
 
@@ -171,19 +162,11 @@ void dijkstra(const graph<Item> &g, SizeType start, vector<int> v[], int *&dist,
     std::fill(dist, dist+g.MAX, 1<<29);
 
     bool visited[g.MAX] = {0, };
-=======
-void dijkstra(graph<Item> &g, SizeType start, vector<vector<int>> weight, int *&ret){
-    int * dist = new int[g.MAX];
-    std::fill(dist, dist+g.MAX, 1<<29);
-
-    bool visited[g.MAX]={0, };
->>>>>>> 59009ea83a995512c8907c1c027fff7cbef579f5
     set<size_t> s;
     set<size_t>::iterator it;
     int count=0;
     dist[start]=0;
     
-<<<<<<< HEAD
     for(int i =0; i<g.size(); i++){
         int cur=-1, cur_dist = 1<<29;
         for(int j =0; j<g.size(); j++){
@@ -205,24 +188,6 @@ void dijkstra(graph<Item> &g, SizeType start, vector<vector<int>> weight, int *&
                 dist[*it] = min(dist[*it], sum);
                 path[*it] = cur;
             }
-=======
-    while(count<g.size()){
-        int cur, curdist=1<<29;
-
-        for(int i =0; i<g.size(); i++){
-            if(visited[i]) continue;
-            if(curdist>dist[i]){
-                curdist = dist[i];
-                cur=i;
-            }
-        }
-
-        s = g.neighbors(cur);
-        it = s.begin();
-
-        for(it=s.begin(); it!=s.end(); it++){
-            dist[*it] = std::min(dist[(*it)], dist[cur]+weight[cur][*it]);
->>>>>>> 59009ea83a995512c8907c1c027fff7cbef579f5
         }
     }
 

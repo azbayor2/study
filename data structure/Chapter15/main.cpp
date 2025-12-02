@@ -4,7 +4,17 @@
 
 using namespace std;
 
+void func(int v){
+
+    cout << v << endl;
+
+    return;
+}
+
 int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    
     int vertices, edges, a, b, cost;
 
     cin >> vertices >> edges;
@@ -23,14 +33,8 @@ int main(){
         weight[a][b] = cost;
     }
 
-<<<<<<< HEAD
     int * res = NULL;
     int * path = NULL;
-=======
-    g.neighbors(0);
-
-    int *res=nullptr;
->>>>>>> 59009ea83a995512c8907c1c027fff7cbef579f5
 
     dijkstra(g, 0, weight, res, path);
 
@@ -45,7 +49,15 @@ int main(){
         cout << "length: " << res[i] << "\n";
     }
 
-    cout << endl;
+    cout << endl << endl;
+
+    cout << "dfs: " << endl;
+    dfs(func, g, 0);
+
+    cout << endl << endl;
+
+    cout << "bfs: " << endl;
+    bfs(func, g, 0);
 
     return 0;
 }
