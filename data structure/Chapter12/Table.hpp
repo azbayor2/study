@@ -19,8 +19,8 @@ class Table{
     private:
     
     Item data[CAPACITY];
-    Item NEVER_USED={-1, };
-    Item PREVIOUSLY_USED={-2, };
+    static const int NEVER_USED=-1;
+    static const int PREVIOUSLY_USED=-2;
     std::size_t used;
 
     std::size_t hash(int key) const{
@@ -51,11 +51,11 @@ class Table{
     }
 
     bool never_used(int index){
-        return data[index]==NEVER_USED;
+        return data[index].key==NEVER_USED;
     }
 
     bool is_vacant(int index){
-        return (data[index]==PREVIOUSLY_USED || data[index]==NEVER_USED);
+        return (data[index].key==PREVIOUSLY_USED || data[index].key==NEVER_USED);
     }
 
     public:
@@ -63,7 +63,7 @@ class Table{
     Table(){
         used= 0;
         for(int i =0; i<CAPACITY; i++)
-            data[i] = NEVER_USED;
+            data[i].key = NEVER_USED;
     }
 
     bool insert(Item data){
@@ -87,14 +87,13 @@ class Table{
         return true;
     }
 
-    bool erase(int key, Item & rem){
+    bool erase(int key){
         bool found;
         int idx;
         find_index(key, found, idx);
 
         if(!found) return false;
-        rem = data[idx];
-        this->data[idx] = PREVIOUSLY_USED;
+        this->data[idx].key = PREVIOUSLY_USED;
         used--;
 
         return true;

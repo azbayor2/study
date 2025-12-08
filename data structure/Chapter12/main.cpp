@@ -17,5 +17,7 @@ int main(){
 
     tb.insert({1002, });
 
+    tb.erase(2);
+
     return 0;
 }
