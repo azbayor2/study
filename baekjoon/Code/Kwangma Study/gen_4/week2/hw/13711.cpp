@@ -1,6 +1,5 @@
 #include <iostream>
 #include <map>
-#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -25,7 +24,11 @@ int main(){
         m[a] =i;
     }
 
-
+//두 수열의 최장 공통 부분 수열이 있을 때
+//하나를 기준 수열로 두고
+//다른 수열은 저장된 숫자의 인덱스 번호가 증가해야함.
+//(왼쪽에서 오른쪽으로 가기 때문)
+//재정렬후 LIS 알고리즘 사용함.
     
     for(int i =1; i<=N; i++){
         int cur = m[arr[i]];
